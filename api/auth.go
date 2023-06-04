@@ -50,12 +50,11 @@ func Auth(c *fiber.Ctx) error {
 	ch, ct := Check(userdata, client, collection)
 
 	if ct == 0 {
-		info := []interface{}{userdata}
 
-		insertManyResult, err := collection.InsertMany(context.TODO(), info)
-		_ = insertManyResult
+		insertOneResult, err := collection.InsertOne(context.TODO(), userdata)
+		_ = insertOneResult
 		if err != nil {
-			fmt.Println("Something went wrong trying to insert the new documents:")
+			fmt.Println("Something went wrong trying to insert the new document:")
 			panic(err)
 		}
 	} else if ct == 2 {

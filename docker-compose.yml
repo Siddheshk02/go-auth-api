@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  app:
+    container_name: auth-api
+    image: auth-api
+    build:
+      context: .
+      dockerfile: DockerFile
+      target: development
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+  
+
+  
