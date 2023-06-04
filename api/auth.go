@@ -24,7 +24,7 @@ func Auth(c *fiber.Ctx) error {
 		return err
 	}
 
-	var mongoUri = "mongodb+srv://Siddhesh:Sid42002@cluster0.puhgp.mongodb.net/?retryWrites=true&w=majority"
+	var mongoUri = "mongodb+srv://@cluster0.puhgp.mongodb.net/?retryWrites=true&w=majority"
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
