@@ -2,9 +2,7 @@ package api
 
 import (
 	"context"
-	"encoding/base64"
 	"fmt"
-	"io/ioutil"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -17,8 +15,6 @@ type Info struct {
 	Email string `json:"email"`
 	Name  string `json:"name"`
 	Phone string `json:"phone"`
-	Image string `json:"image"`
-	Pdf   string `json:"pdf"`
 }
 
 func User(c *fiber.Ctx) error {
@@ -28,7 +24,6 @@ func User(c *fiber.Ctx) error {
 
 	c.Request().Header.VisitAllCookie(func(key, value []byte) {
 		tokenstring = string(value)
-		fmt.Println("res cookieKey", string(key), "value", tokenstring)
 	})
 
 	token, err := jwt.Parse(tokenstring, func(token *jwt.Token) (interface{}, error) {
@@ -75,21 +70,6 @@ func User(c *fiber.Ctx) error {
 	if err := c.BodyParser(userinfo); err != nil {
 		return err
 	}
-
-	imageData, err := ioutil.ReadFile(userinfo.Image)
-	if err != nil {
-		return err
-	}
-	_ = imageData
-
-	pdfData, err := ioutil.ReadFile(userinfo.Pdf)
-	if err != nil {
-		return err
-	}
-	_ = pdfData
-
-	userinfo.Image = base64.StdEncoding.EncodeToString(imageData)
-	userinfo.Pdf = base64.StdEncoding.EncodeToString(pdfData)
 
 	userinfo.Email = email
 
