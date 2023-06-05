@@ -1,8 +1,0 @@
-FROM golang:latest AS development
-WORKDIR /app
-COPY go.mod go.sum ./
-RUN go mod download
-COPY . .
-RUN go install github.com/cespare/reflex@latest
-EXPOSE 3000
-CMD reflex -g '*.go' go run main.go --start-service
