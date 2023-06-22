@@ -12,7 +12,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func TestAuthenticateUser(t *testing.T) {
+func TestAuth(t *testing.T) {
 	app := fiber.New()
 
 	app.Post("/auth", func(c *fiber.Ctx) error {
@@ -70,6 +70,10 @@ func TestAuthenticateUser(t *testing.T) {
 		response := map[string]string{"token": token}
 		return c.JSON(response)
 	})
+}
+
+func TestUser(t *testing.T) {
+	app := fiber.New()
 
 	app.Post("/user", func(c *fiber.Ctx) error {
 		userinfo := new(Info)
